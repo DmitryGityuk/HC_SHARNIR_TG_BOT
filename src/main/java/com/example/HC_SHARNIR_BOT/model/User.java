@@ -1,10 +1,10 @@
 package com.example.HC_SHARNIR_BOT.model;
 
 import lombok.*;
-import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 
 @Entity(name = "playersDataTable")
 @ToString
@@ -28,4 +28,10 @@ public class User {
     private int assists;
 
     private int comb;
+
+    private int countVisits;
+
+    private int countGames;
+
+    private float averageScore;
 }
