@@ -12,4 +12,7 @@ public interface MessageService {
 
     SendMessage getHelpMessage(long chatId, String name);
 
+    SendMessage sendMessageRegisterOnMondayGame();
+
+    SendMessage sendMessageRegisterOnThursdayGame();
 }
