@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import java.sql.Timestamp;
 
 @Entity(name = "playersDataTable")
-@ToString
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -34,4 +33,13 @@ public class User {
     private int countGames;
 
     private float averageScore;
+
+    @Override
+    public String toString() {
+        return  " Имя: " + fullName +
+                ", голы = " + goals +
+                ", пасы = " + assists +
+                ", всего = " + comb +
+                ", средний бал = " + averageScore + "\n";
+    }
 }
