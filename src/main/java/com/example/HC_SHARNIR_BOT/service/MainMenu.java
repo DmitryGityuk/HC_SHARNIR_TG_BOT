@@ -19,6 +19,7 @@ public class MainMenu {
         commandList.add(new BotCommand("/topscorers", "get info top 3 scorers"));
         commandList.add(new BotCommand("/topassists", "get info top 3 assists"));
         commandList.add(new BotCommand("/topcomb", "get info top 3 players (goals + assists)"));
+        commandList.add(new BotCommand("/allplayers", "get info about all players"));
         commandList.add(new BotCommand("/help", "info how to used this bot"));
         return commandList;
     }
@@ -33,15 +34,18 @@ public class MainMenu {
         KeyboardRow row1 = new KeyboardRow();
         KeyboardRow row2 = new KeyboardRow();
         KeyboardRow row3 = new KeyboardRow();
+        KeyboardRow row4 = new KeyboardRow();
         row1.add(new KeyboardButton("Регистрация"));
         row2.add(new KeyboardButton("Про меня"));
         row2.add(new KeyboardButton("Помощь"));
         row3.add(new KeyboardButton("Голы"));
         row3.add(new KeyboardButton("Голевые пасы"));
         row3.add(new KeyboardButton("Голы + Пасы"));
+        row4.add(new KeyboardButton("Таблица"));
         keyboard.add(row1);
         keyboard.add(row2);
         keyboard.add(row3);
+        keyboard.add(row4);
         replyKeyboardMarkup.setKeyboard(keyboard);
         return replyKeyboardMarkup;
     }
