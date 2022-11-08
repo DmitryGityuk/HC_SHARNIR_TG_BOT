@@ -10,9 +10,9 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>HC_SHARNIR_BOT</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>HC_SHARNIR_BOT</name>
-    <description>Demo project for Spring Boot</description>
+    <description>TG_BOT HC_SHARNIR</description>
     <properties>
         <java.version>11</java.version>
         <telegram.version>5.7.1</telegram.version>
