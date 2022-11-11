@@ -4,15 +4,20 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 public interface MessageService {
 
-    SendMessage sendMessage(long chatId, String textToSend);
+    void sendSimpleMsg(SendMessage msg);
 
-    SendMessage prepareAndSendMessage(long chatId, String textToSend);
+    void sendMessage(long chatId, String textToSend);
 
-    SendMessage getWelcomeMessage(long chatId, String name);
+    void prepareAndSendMessage(long chatId, String textToSend);
 
-    SendMessage getHelpMessage(long chatId, String name);
+    void sendWelcomeMessage(long chatId, String name);
 
-    SendMessage sendMessageRegisterOnMondayGame();
+    void sendHelpMessage(long chatId, String name);
 
-    SendMessage sendMessageRegisterOnThursdayGame();
+    void sendEditMessage(String text, long chatId, long messageId);
+
+    void sendMessageRegisterOnMondayGame();
+
+    void sendMessageRegisterOnThursdayGame();
+
 }
