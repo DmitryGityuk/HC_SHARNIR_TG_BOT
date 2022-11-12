@@ -14,7 +14,7 @@
     <name>HC_SHARNIR_BOT</name>
     <description>TG_BOT HC_SHARNIR</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>14</java.version>
         <telegram.version>5.7.1</telegram.version>
     </properties>
     <dependencies>
