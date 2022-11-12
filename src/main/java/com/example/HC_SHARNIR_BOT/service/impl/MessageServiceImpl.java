@@ -1,9 +1,9 @@
 package com.example.HC_SHARNIR_BOT.service.impl;
 
+import com.example.HC_SHARNIR_BOT.handler.impl.MessageHandlerSenderImpl;
 import com.example.HC_SHARNIR_BOT.model.User;
 import com.example.HC_SHARNIR_BOT.repository.AdsRepository;
 import com.example.HC_SHARNIR_BOT.repository.UserRepository;
-import com.example.HC_SHARNIR_BOT.service.MainMenu;
 import com.example.HC_SHARNIR_BOT.service.MessageService;
 import com.example.HC_SHARNIR_BOT.utils.Buttons;
 import com.example.HC_SHARNIR_BOT.utils.Emojis;
@@ -15,39 +15,43 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 @Service
 @Slf4j
 public class MessageServiceImpl implements MessageService {
-    private final MainMenu mainMenu;
+
     private final Buttons buttons;
     private final AdsRepository adsRepository;
     private final UserRepository userRepository;
+    private final MessageHandlerSenderImpl messageHandler;
     private final Long MON_ID = 1L;
     private final Long THU_ID = 2L;
 
-    public MessageServiceImpl(MainMenu mainMenu, Buttons buttons, AdsRepository ads, UserRepository userRepository) {
-        this.mainMenu = mainMenu;
+    public MessageServiceImpl(Buttons buttons, AdsRepository ads, UserRepository userRepository, MessageHandlerSenderImpl messageHandler) {
         this.buttons = buttons;
         this.adsRepository = ads;
         this.userRepository = userRepository;
+        this.messageHandler = messageHandler;
     }
 
     @Override
-    public SendMessage sendMessage(long chatId, String textToSend) {
-        SendMessage message = new SendMessage();
-        message.setChatId(String.valueOf(chatId));
-        message.setText(textToSend);
-        message.setReplyMarkup(mainMenu.getMainMenuKeyboard());
-        return message;
+    public void sendSimpleMsg(SendMessage msg) {
+        messageHandler.executeMessage(msg);
     }
 
     @Override
-    public SendMessage prepareAndSendMessage(long chatId, String textToSend) {
-        SendMessage message = new SendMessage();
-        message.setChatId(String.valueOf(chatId));
-        message.setText(textToSend);
-        return message;
+    public void sendMessage(long chatId, String textToSend) {
+        messageHandler.sendMsgWithMarkup(chatId, textToSend);
     }
 
     @Override
-    public SendMessage getWelcomeMessage(long chatId, String name) {
+    public void prepareAndSendMessage(long chatId, String textToSend) {
+        messageHandler.sendMsg(chatId, textToSend);
+    }
+
+    @Override
+    public void sendEditMessage(String text, long chatId, long messageId) {
+        messageHandler.executeEditMessage(text, chatId, messageId);
+    }
+
+    @Override
+    public void sendWelcomeMessage(long chatId, String name) {
         String welcomeAnswer = EmojiParser.parseToUnicode(
                 "Привет, " + name + ", рад что ты присоединился."
                         + "\nДля начала нажми на кнопку 'Регистрация' внизу чтобы я добавил тебя в базу игроков" + Emojis.POINT_DOWN
@@ -57,11 +61,11 @@ public class MessageServiceImpl implements MessageService {
                         + "\nP.S если ты обнаружишь какие-либо неточности/баги, то не спеши закидывать меня ссаными тряпками" + Emojis.MOYAI + ", а лучше напиши Диме, он по идее должен поправить ситуацию."
                         + " Ну и по всем предложениям тоже можешь ему писать " + Emojis.CALLING);
         log.info("Replied to user " + name);
-        return prepareAndSendMessage(chatId, welcomeAnswer);
+        sendMessage(chatId, welcomeAnswer);
     }
 
     @Override
-    public SendMessage getHelpMessage(long chatId, String name) {
+    public void sendHelpMessage(long chatId, String name) {
         String helpAnswer = EmojiParser.parseToUnicode(
                 name + ", чем тебе помочь?"
                         + "Кнопка 'Регистрация' добавит тебя в базу игроков этого сезона"
@@ -73,17 +77,17 @@ public class MessageServiceImpl implements MessageService {
                         + "\nКоманда '/help' и кнопка 'Помощь' покажет тебе это сообщение."
         );
         log.info("Helping to user " + name);
-        return prepareAndSendMessage(chatId, helpAnswer);
+        prepareAndSendMessage(chatId, helpAnswer);
     }
 
     @Override
-    public SendMessage sendMessageRegisterOnMondayGame() {
-        return setMessage(MON_ID);
+    public void sendMessageRegisterOnMondayGame() {
+        messageHandler.executeMessage(setMessage(MON_ID));
     }
 
     @Override
-    public SendMessage sendMessageRegisterOnThursdayGame() {
-        return setMessage(THU_ID);
+    public void sendMessageRegisterOnThursdayGame() {
+        messageHandler.executeMessage(setMessage(THU_ID));
     }
 
     private SendMessage setMessage(long id) {
