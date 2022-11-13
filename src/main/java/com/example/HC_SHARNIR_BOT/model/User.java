@@ -39,7 +39,8 @@ public class User {
         return  " Имя: " + fullName +
                 ", голы = " + goals +
                 ", пасы = " + assists +
-                ", всего = " + comb +
+                ", пас + гол = " + comb +
+                ", игр = " + countGames +
                 ", средний бал = " + averageScore + "\n";
     }
 }
