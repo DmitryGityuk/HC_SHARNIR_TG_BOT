@@ -9,14 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @Component
 public class MessageHandlerImpl extends TelegramLongPollingBot {
 
-<<<<<<< HEAD
     public MessageHandlerImpl() { }
-=======
-    public MessageHandlerImpl() {
-
-    public MessageHandlerImpl(BotConfig config) {
-    }
->>>>>>> master/master
 
     @Override
     public void onUpdateReceived(Update update) {
