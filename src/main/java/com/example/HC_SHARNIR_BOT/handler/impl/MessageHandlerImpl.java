@@ -11,6 +11,7 @@ public class MessageHandlerImpl extends TelegramLongPollingBot {
 
     public MessageHandlerImpl() {
 
+    public MessageHandlerImpl(BotConfig config) {
     }
 
     @Override
