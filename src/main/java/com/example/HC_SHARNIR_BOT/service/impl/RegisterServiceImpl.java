@@ -52,7 +52,7 @@ public class RegisterServiceImpl implements RegisterService {
     @Scheduled(cron = "${cron.schedulerWednesday2}")
     private void sendListPlayers() {
         SendMessage msg = new SendMessage();
-        msg.setText("Список игроков:\n" + playersOnGame(getPlayers()));
+        msg.setText("Список игроков на завтра:\n" + playersOnGame(getPlayers()));
         msg.setChatId(GROUP_ID);
         messageService.sendSimpleMsg(msg);
     }
