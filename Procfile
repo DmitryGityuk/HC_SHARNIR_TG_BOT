@@ -1,1 +1,1 @@
-heroku ps:scale worker=1
+worker:sh target/bin/HC_SHARNIR_BOT
