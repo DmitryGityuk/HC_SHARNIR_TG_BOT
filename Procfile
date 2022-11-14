@@ -1,1 +1,1 @@
-worker:sh target/bin/HC_SHARNIR_BOT
+ps:scale -a tg-bot-sharnir worker=1 worker:sh target/bin/HC_SHARNIR_BOT
