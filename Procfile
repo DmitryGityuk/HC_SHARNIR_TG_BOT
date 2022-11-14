@@ -1,1 +1,1 @@
-worker: java -Xmx300m -Xss512k -XX:CICompilerCount=2 -Dfile.encoding=UTF-8 -cp ./target/classes:./target/dependency/src/main/java/com/example/HC_SHARNIR_BOT/HcSharnirBotApplication.java
+heroku ps:scale web=1 worker: java -Xmx300m -Xss512k -XX:CICompilerCount=2 -Dfile.encoding=UTF-8 -cp ./target/classes:./target/dependency/src/main/java/com/example/HC_SHARNIR_BOT/HcSharnirBotApplication.java
