@@ -20,4 +20,6 @@ public interface MessageService {
 
     void sendMessageRegisterOnThursdayGame();
 
+    void sendTestMessage();
+
 }
