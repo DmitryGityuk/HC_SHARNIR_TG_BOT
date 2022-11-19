@@ -1,1 +1,1 @@
-worker: java -Xmx300m -Xss512k -XX:CICompilerCount=2 -Dfile.encoding=UTF-8 -cp ./target/classes:./target/dependency/src/main/java/com/example/HC_SHARNIR_BOT/HcSharnirBotApplication.java
+worker: java -Xmx300m -Xss512k -XX:CICompilerCount=2 -Dfile.encoding=UTF-8 -jar target/HC_SHARNIR_BOT-1.0.0.jar
