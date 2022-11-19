@@ -9,14 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @Component
 public class MessageHandlerImpl extends TelegramLongPollingBot {
 
-    public MessageHandlerImpl() {
-
-    public MessageHandlerImpl(BotConfig config) {
-    }
-
-    @Override
-    public void onUpdateReceived(Update update) {
-    }
+    public MessageHandlerImpl() {}
 
     @Override
     public String getBotUsername() {
@@ -26,5 +19,10 @@ public class MessageHandlerImpl extends TelegramLongPollingBot {
     @Override
     public String getBotToken() {
         return "5570132616:AAG1EYgo7_InaLmroyfwkI_ALiak7-1m31A";
+    }
+
+    @Override
+    public void onUpdateReceived(Update update) {
+
     }
 }
