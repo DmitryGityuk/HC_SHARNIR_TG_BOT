@@ -2,11 +2,11 @@ package com.example.HC_SHARNIR_BOT.service;
 
 import com.example.HC_SHARNIR_BOT.config.BotConfig;
 import com.example.HC_SHARNIR_BOT.service.impl.MessageServiceImpl;
+import com.example.HC_SHARNIR_BOT.service.impl.NotificationsServiceImpl;
 import com.example.HC_SHARNIR_BOT.service.impl.RegisterServiceImpl;
 import com.example.HC_SHARNIR_BOT.service.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
@@ -22,15 +22,17 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final MainMenu mainMenu;
     private final MessageServiceImpl messageService;
     private final RegisterServiceImpl registerService;
+    private final NotificationsServiceImpl notifications;
     private final BotConfig config;
 
     public TelegramBot(BotConfig config, UserServiceImpl service, MainMenu mainMenu, MessageServiceImpl messageService,
-                       RegisterServiceImpl registerService) {
+                       RegisterServiceImpl registerService, NotificationsServiceImpl notifications) {
         this.userServiceimpl = service;
         this.config = config;
         this.mainMenu = mainMenu;
         this.messageService = messageService;
         this.registerService = registerService;
+        this.notifications = notifications;
         try {
             this.execute(new SetMyCommands(mainMenu.getCommandList(), new BotCommandScopeDefault(), null));
         } catch (TelegramApiException ex) {
@@ -52,20 +54,14 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "/topcomb", "Голы + Пасы" -> messageService.sendMessage(chatId, String.valueOf(userServiceimpl.showTop3Players()));
                 case "/allplayers", "Таблица" -> messageService.sendMessage(chatId, String.valueOf(userServiceimpl.showAllPlayers(update.getMessage())));
                 case "Регистрация" -> userServiceimpl.registerUser(update.getMessage());
+                case "Понедельник" -> messageService.sendMessageRegisterOnMondayGame();
+                case "Четверг" -> messageService.sendMessageRegisterOnThursdayGame();
+                case "Список" -> registerService.sendListPlayers();
+                case "Деньги" -> notifications.sendNotification();
             }
         } else if (update.hasCallbackQuery()) {
             registerService.registerPlayerOnGame(update);
         }
-    }
-
-    @Scheduled(cron = "${cron.schedulerSunday1}")
-    private void registerOnMondayGame() {
-        messageService.sendMessageRegisterOnMondayGame();
-    }
-
-    @Scheduled(cron = "${cron.schedulerWednesday1}")
-    private void registerOnThursdayGame() {
-        messageService.sendMessageRegisterOnThursdayGame();
     }
 
     @Override

@@ -5,8 +5,8 @@ import com.example.HC_SHARNIR_BOT.repository.UserRepository;
 import com.example.HC_SHARNIR_BOT.service.UserService;
 import com.example.HC_SHARNIR_BOT.utils.Emojis;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.sql.Timestamp;
@@ -51,23 +51,27 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public String showTop3Assists(Message msg) {
         ArrayList<User> players = (ArrayList<User>) userRepository.getUserByAssists();
         return getString(players);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public String infoAboutMe(Message msg) {
         return String.valueOf((userRepository.findById(msg.getChatId()).get()));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public String showTop3Players() {
         ArrayList<User> players = (ArrayList<User>) userRepository.getUserByComb();
         return getString(players);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public String showTop3Scorers(Message msg) {
         ArrayList<User> players = (ArrayList<User>) userRepository.getUserByGoals();
@@ -76,8 +80,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String showAllPlayers(Message msg) {
-        ArrayList<User> players = (ArrayList<User>) userRepository.findAll(Sort.by(Sort.Direction.DESC, "comb"));
-        return getString(players);
+        String pathToTable = "https://docs.google.com/spreadsheets/d/1o3kOJpb_yMz-_hngTE7LphrGz7GAy0dzHCQ3OCOu3Xw/edit#gid=0";
+        return pathToTable;
     }
 
     private String getString(ArrayList<User> players) {
