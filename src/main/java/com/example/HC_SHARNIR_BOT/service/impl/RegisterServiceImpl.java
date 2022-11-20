@@ -42,21 +42,18 @@ public class RegisterServiceImpl implements RegisterService {
                 log.info("добавил игрока " + update.getCallbackQuery().getFrom().getFirstName());
                 messageService.sendEditMessage(txt, chatId, messageId);
             } else if (callbackData.equals(buttons.getNO())) {
-                String txt = "Жаль, ждём тебя на следующей игре";
+                String txt = "Ладули, тогда ждём тебя на следующей игре";
                 messageService.sendEditMessage(txt, chatId, messageId);
             }
         }
     }
 
-    @Scheduled(cron = "${cron.schedulerSunday2}")
-    @Scheduled(cron = "${cron.schedulerWednesday2}")
-    private void sendListPlayers() {
+    public void sendListPlayers() {
         SendMessage msg = new SendMessage();
         msg.setText("Список игроков на завтра:\n" + playersOnGame(getPlayers()));
         msg.setChatId(GROUP_ID);
         messageService.sendSimpleMsg(msg);
     }
-
 
     public <K, V> String playersOnGame(Map<K, V> players) {
         String firstName = players.keySet().toString().replaceAll("[\\p{Ps}\\p{Pe}]", "");
