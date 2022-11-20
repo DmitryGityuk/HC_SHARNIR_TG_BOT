@@ -25,8 +25,4 @@ public class MessageHandlerImpl extends TelegramLongPollingBot {
         return "5570132616:AAG1EYgo7_InaLmroyfwkI_ALiak7-1m31A";
     }
 
-    @Override
-    public void onUpdateReceived(Update update) {
-
-    }
 }
