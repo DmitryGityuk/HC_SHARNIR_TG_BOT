@@ -9,7 +9,6 @@ import com.example.HC_SHARNIR_BOT.utils.Buttons;
 import com.example.HC_SHARNIR_BOT.utils.Emojis;
 import com.vdurmont.emoji.EmojiParser;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
@@ -100,13 +99,5 @@ public class MessageServiceImpl implements MessageService {
             msg.setChatId(String.valueOf(user.getChatId()));
         }
         return msg;
-    }
-
-    @Scheduled(cron = "${cron.schedulerTest}")
-    @Override
-    public void sendTestMessage() {
-        var chatMyId = 459588501;
-        String msg = "Вроде работает";
-        sendMessage(chatMyId, msg);
     }
 }
