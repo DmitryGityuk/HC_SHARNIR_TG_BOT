@@ -14,10 +14,8 @@ public interface MessageService {
 
     void sendHelpMessage(long chatId, String name);
 
-    void sendEditMessage(String text, long chatId, long messageId);
+    void sendMessageRegisterOnGame();
 
-    void sendMessageRegisterOnMondayGame();
-
-    void sendMessageRegisterOnThursdayGame();
+    void sendEditMessageWithMarkup(String text, long chatId, long messageId);
 
 }
