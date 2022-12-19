@@ -7,6 +7,7 @@ import com.example.HC_SHARNIR_BOT.service.impl.RegisterServiceImpl;
 import com.example.HC_SHARNIR_BOT.service.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
@@ -54,14 +55,19 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "/topcomb", "Голы + Пасы" -> messageService.sendMessage(chatId, String.valueOf(userServiceimpl.showTop3Players()));
                 case "/allplayers", "Таблица" -> messageService.sendMessage(chatId, String.valueOf(userServiceimpl.showAllPlayers(update.getMessage())));
                 case "Регистрация" -> userServiceimpl.registerUser(update.getMessage());
-                case "Понедельник" -> messageService.sendMessageRegisterOnMondayGame();
-                case "Четверг" -> messageService.sendMessageRegisterOnThursdayGame();
-                case "Список" -> registerService.sendListPlayers();
+                case "Все на игру" -> messageService.sendMessageRegisterOnGame();
                 case "Деньги" -> notifications.sendNotification();
+                case "Список" -> registerService.sendListPlayers();
             }
         } else if (update.hasCallbackQuery()) {
             registerService.registerPlayerOnGame(update);
         }
+    }
+
+    @Scheduled(cron = "${cron.schedulerSunday}")
+    @Scheduled(cron = "${cron.schedulerWednesday}")
+    private void registerOnMondayGame() {
+        messageService.sendMessageRegisterOnGame();
     }
 
     @Override
