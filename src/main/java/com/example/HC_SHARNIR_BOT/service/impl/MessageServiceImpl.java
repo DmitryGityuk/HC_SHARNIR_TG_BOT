@@ -1,27 +1,28 @@
 package com.example.HC_SHARNIR_BOT.service.impl;
 
 import com.example.HC_SHARNIR_BOT.handler.impl.MessageHandlerSenderImpl;
-import com.example.HC_SHARNIR_BOT.model.User;
 import com.example.HC_SHARNIR_BOT.repository.AdsRepository;
 import com.example.HC_SHARNIR_BOT.repository.UserRepository;
 import com.example.HC_SHARNIR_BOT.service.MessageService;
 import com.example.HC_SHARNIR_BOT.utils.Buttons;
 import com.example.HC_SHARNIR_BOT.utils.Emojis;
 import com.vdurmont.emoji.EmojiParser;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 @Service
 @Slf4j
+@Getter
 public class MessageServiceImpl implements MessageService {
-
     private final Buttons buttons;
     private final AdsRepository adsRepository;
     private final UserRepository userRepository;
     private final MessageHandlerSenderImpl messageHandler;
-    private final Long MON_ID = 1L;
-    private final Long THU_ID = 2L;
+    private final Long GEN_ID = 1L;
+    private final String GROUP_ID = "-1001387017494";
+
 
     public MessageServiceImpl(Buttons buttons, AdsRepository ads, UserRepository userRepository, MessageHandlerSenderImpl messageHandler) {
         this.buttons = buttons;
@@ -46,8 +47,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void sendEditMessage(String text, long chatId, long messageId) {
-        messageHandler.executeEditMessage(text, chatId, messageId);
+    public void sendEditMessageWithMarkup(String text, long chatId, long messageId) {
+        messageHandler.executeEditMessageWithMarkup(text, chatId, messageId);
     }
 
     @Override
@@ -81,23 +82,15 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void sendMessageRegisterOnMondayGame() {
-        messageHandler.executeMessage(setMessage(MON_ID));
-    }
-
-    @Override
-    public void sendMessageRegisterOnThursdayGame() {
-        messageHandler.executeMessage(setMessage(THU_ID));
+    public void sendMessageRegisterOnGame() {
+        messageHandler.executeMessage(setMessage(GEN_ID));
     }
 
     private SendMessage setMessage(long id) {
-        var users = userRepository.findAll();
         SendMessage msg = new SendMessage();
         msg.setReplyMarkup(buttons.getInlineKeyboardMarkup());
-        for (User user : users) {
-            msg.setText(adsRepository.findById(id).get().getMsg());
-            msg.setChatId(String.valueOf(user.getChatId()));
-        }
+        msg.setText(adsRepository.findById(id).get().getMsg());
+        msg.setChatId(GROUP_ID);
         return msg;
     }
 }
