@@ -24,5 +24,4 @@ public class MessageHandlerImpl extends TelegramLongPollingBot {
     public String getBotToken() {
         return "5570132616:AAG1EYgo7_InaLmroyfwkI_ALiak7-1m31A";
     }
-
 }

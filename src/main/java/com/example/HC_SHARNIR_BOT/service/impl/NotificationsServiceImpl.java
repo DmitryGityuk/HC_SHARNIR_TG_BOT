@@ -16,6 +16,7 @@ public class NotificationsServiceImpl implements NotificationsService {
     private final String GROUP_ID = "-1001387017494";
     private List<String> payNotifications;
 
+
     public NotificationsServiceImpl(MessageServiceImpl messageService) {
         this.messageService = messageService;
     }

@@ -7,7 +7,6 @@ import com.example.HC_SHARNIR_BOT.service.impl.RegisterServiceImpl;
 import com.example.HC_SHARNIR_BOT.service.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
@@ -69,7 +68,6 @@ public class TelegramBot extends TelegramLongPollingBot {
     private void registerOnGame() {
         messageService.sendMessageRegisterOnGame();
     }
-
     @Override
     public String getBotUsername() {
         return config.getBotName();
