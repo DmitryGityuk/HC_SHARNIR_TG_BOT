@@ -11,4 +11,6 @@ public interface MessageHandlerSender {
     void executeMessage(SendMessage msg);
 
     void executeEditMessage(String text, long chatId, long messageId);
+
+    void executeEditMessageWithMarkup(String text, long chatId, long messageId);
 }
