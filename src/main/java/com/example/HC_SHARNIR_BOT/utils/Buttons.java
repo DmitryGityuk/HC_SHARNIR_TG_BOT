@@ -19,17 +19,16 @@ public class Buttons {
         List<List<InlineKeyboardButton>> rowsInLine = new ArrayList<>();
         List<InlineKeyboardButton> rowInLine = new ArrayList<>();
         var yesButton = new InlineKeyboardButton();
-        yesButton.setText("Да");
+        yesButton.setText("+");
         yesButton.setCallbackData(YES);
         var noButton = new InlineKeyboardButton();
-        noButton.setText("Нет");
+        noButton.setText("-");
         noButton.setCallbackData(NO);
 
         rowInLine.add(yesButton);
         rowInLine.add(noButton);
         rowsInLine.add(rowInLine);
         inlineMarkup.setKeyboard(rowsInLine);
-
         return inlineMarkup;
     }
 }

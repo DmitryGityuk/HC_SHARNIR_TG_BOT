@@ -54,16 +54,20 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "/topcomb", "Голы + Пасы" -> messageService.sendMessage(chatId, String.valueOf(userServiceimpl.showTop3Players()));
                 case "/allplayers", "Таблица" -> messageService.sendMessage(chatId, String.valueOf(userServiceimpl.showAllPlayers(update.getMessage())));
                 case "Регистрация" -> userServiceimpl.registerUser(update.getMessage());
-                case "Понедельник" -> messageService.sendMessageRegisterOnMondayGame();
-                case "Четверг" -> messageService.sendMessageRegisterOnThursdayGame();
-                case "Список" -> registerService.sendListPlayers();
+                case "Все на игру" -> messageService.sendMessageRegisterOnGame();
                 case "Деньги" -> notifications.sendNotification();
+                case "Список" -> registerService.sendListPlayers();
             }
         } else if (update.hasCallbackQuery()) {
             registerService.registerPlayerOnGame(update);
         }
     }
 
+    @Scheduled(cron = "${cron.schedulerSunday}")
+    @Scheduled(cron = "${cron.schedulerWednesday}")
+    private void registerOnGame() {
+        messageService.sendMessageRegisterOnGame();
+    }
     @Override
     public String getBotUsername() {
         return config.getBotName();

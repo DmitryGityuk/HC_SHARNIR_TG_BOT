@@ -11,7 +11,10 @@ public enum Emojis {
     CHART_WITH_UPWARDS_TREND(EmojiParser.parseToUnicode(":chart_with_upwards_trend:")),
     MUSCLE(EmojiParser.parseToUnicode(":muscle:")),
     SPEECH_BALLOON(EmojiParser.parseToUnicode(":speech_balloon:")),
-    COPYRIGHT(EmojiParser.parseToUnicode(":copyright:"));
+
+    COPYRIGHT(EmojiParser.parseToUnicode(":copyright:")),
+    EURO(EmojiParser.parseToUnicode(":euro:"));
+    
     private String emojiName;
 
     @Override
