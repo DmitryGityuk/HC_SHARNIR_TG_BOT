@@ -66,7 +66,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Scheduled(cron = "${cron.schedulerSunday}")
     @Scheduled(cron = "${cron.schedulerWednesday}")
-    private void registerOnMondayGame() {
+    private void registerOnGame() {
         messageService.sendMessageRegisterOnGame();
     }
 
